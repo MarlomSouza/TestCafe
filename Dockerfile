@@ -1,13 +1,6 @@
-FROM alpine:edge
-
-RUN apk --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ add \
- nodejs nodejs-npm chromium firefox xwininfo xvfb dbus eudev ttf-freefont fluxbox
-
-COPY . /opt/testcafe
-
-RUN cd /opt/testcafe; \
- npm install --production && \
- npm cache clean --force && \
- rm -rf /tmp/* 
-
+FROM node
+WORKDIR /home/node
+COPY tests .
+RUN npm install -g testcafe && apt-get update && apt-get install chromium -y && apt-get install xvfb -y && apt-get install fluxbox
 EXPOSE 1337 1338
+ENTRYPOINT [ "../../bin/bash" ]
