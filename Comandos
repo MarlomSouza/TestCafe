@@ -1,0 +1,47 @@
+docker build -t testcafe .
+
+docker run -it testcafe bash
+
+testcafe --list-browsers
+
+xvfb-run testcafe all PrimeiroTeste.js
+
+xvfb-run google-chrome-stable http://google.com
+chromium
+whereis google-chrome
+
+RUN \
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+  echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+  apt-get update && \
+  apt-get install -y google-chrome-stable && \
+  rm -rf /var/lib/apt/lists/*
+
+
+xvfb-run --server-args='-screen 0, 1024x768x16' google-chrome --no-sandbox -start-maximized http://example.com > /dev/null &
+
+
+xvfb-run google-chrome --remote-debugging-port=9222 --disable-gpu https://www.google.com
+
+Xvfb :0 -screen 0 1024x768x24 & DISPLAY=:0 google-chrome 
+
+export DISPLAY=:0 Xvfb :0 -screen 0 1024x768x24 & google-chrome --disable-gpu --no-sandbox http://example.com
+
+
+google-chrome-stable --headless --no-sandbox --disable-gpu --screenshot https://github.com/
+Xvfb :99 & export DISPLAY=:99 chromium --headless --no-sandbox --disable-gpu --screenshot https://github.com/
+
+xvfb-run chromium --remote-debugging-port=9222 https://www.chromestatus.com
+
+
+google-chrome-stable --headless --no-sandbox --disable-gpu
+
+Xvfb :0 -screen 0 1024x768x24 & 
+
+
+xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" chromium --remote-debugging-port=9222 https://www.chromestatus.com
+
+
+chrome --headless --disable-gpu --remote-debugging-port=9222 https://www.chromestatus.co
+
+chromium --headless --disable-gpu --no-sandbox --print-to-pdf https://www.chromestatus.com/
