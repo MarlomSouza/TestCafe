@@ -31,17 +31,33 @@ export DISPLAY=:0 Xvfb :0 -screen 0 1024x768x24 & google-chrome --disable-gpu --
 google-chrome-stable --headless --no-sandbox --disable-gpu --screenshot https://github.com/
 Xvfb :99 & export DISPLAY=:99 chromium --headless --no-sandbox --disable-gpu --screenshot https://github.com/
 
-xvfb-run chromium --remote-debugging-port=9222 https://www.chromestatus.com
-
-
 google-chrome-stable --headless --no-sandbox --disable-gpu
-
-Xvfb :0 -screen 0 1024x768x24 & 
-
-
-xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" chromium --remote-debugging-port=9222 https://www.chromestatus.com
 
 
 chrome --headless --disable-gpu --remote-debugging-port=9222 https://www.chromestatus.co
 
 chromium --headless --disable-gpu --no-sandbox --print-to-pdf https://www.chromestatus.com/
+
+
+chrome --remote-debugging-port=9222 https://www.chromestatus.com
+
+
+testcafe "path:./google-chrome-stable --no-sandbox" ../../home/node/PrimeiroTeste.js
+../../usr/bin/google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 https://www.chromestatus.co
+
+testcafe "path:../../usr/bin/chromium --no-sandbox" PrimeiroTeste.js
+testcafe "path:../../usr/bin/chromium --headless --disable-gpu --no-sandbox" PrimeiroTeste.js
+testcafe "path:../../usr/bin/chromium --headless --no-sandbox" PrimeiroTeste.js
+testcafe "path:../../usr/bin/chromium --headless --no-sandbox" PrimeiroTeste.js
+testcafe "path:./chromium --no-sandbox" ../../home/node/PrimeiroTeste.js
+
+
+Xvfb :99 & export DISPLAY=:99 && testcafe "path:../usr/bin/chromium-browser --no-sandbox" PrimeiroTeste.js
+
+# ENTRYPOINT [ " Xvfb :99 & export DISPLAY=:99 && testcafe 'path:../usr/bin/chromium-browser --no-sandbox' PrimeiroTeste.js" ]
+
+
+Xvfb :99 & export DISPLAY=:99 & testcafe "path:../usr/bin/chromium --no-sandbox" PrimeiroTeste.js
+
+
+Xvfb :99 -ac -screen 0 1280x720x16 -nolisten tcp & testcafe 'path:../usr/bin/chromium-browser --no-sandbox' *.js
